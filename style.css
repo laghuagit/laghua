@@ -61,20 +61,20 @@ body, html {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 0 15px white;
+    /*box-shadow: 0 0 15px white;*/
 }
 .name-text {
     margin-top: 15px;
     font-size: 36px;
     color: white;
-    text-shadow: 0 0 10px white, 0 0 20px white;
+    /*text-shadow: 0 0 10px white, 0 0 20px white;*/
 }
 .roblox-logo {
     margin-top: 15px;
     width: 60px;
     height: 60px;
     cursor: pointer;
-    filter: drop-shadow(0 0 5px white);
+    /*filter: drop-shadow(0 0 5px white);*/
     transition: transform 0.2s;
 }
 .roblox-logo:hover {
