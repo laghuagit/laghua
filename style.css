@@ -1,10 +1,8 @@
-/* Reset defaults */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body, html {
     width: 100%;
     height: 100%;
@@ -12,22 +10,18 @@ body, html {
     background-color: black;
     font-family: Arial, sans-serif;
 }
-
-/* Video fullscreen */
 #videoPlayer {
-    position: fixed;      /* stay fixed on screen */
+    position: fixed;     
     top: 0;
     left: 0;
-    width: 100%;          /* always fill width */
-    height: 100%;         /* always fill height */
-    object-fit: cover;    /* fill screen, may crop edges */
+    width: 100%;        
+    height: 100%;         
+    object-fit: cover;    
     opacity: 0;
     transition: opacity 1s ease;
-    z-index: 1;           /* behind profile */
-    pointer-events: none; /* allow clicks on profile/Roblox logo */
+    z-index: 1;           
+    pointer-events: none; 
 }
-
-/* Click overlay */
 #click-overlay {
     position: fixed;
     top: 0;
@@ -47,13 +41,9 @@ body, html {
     color: white;
     text-shadow: 0 0 10px white;
 }
-
-/* Hidden class */
 .hidden {
     display: none;
 }
-
-/* Profile container */
 .profile-container {
     position: absolute;
     top: 50%;
@@ -66,7 +56,6 @@ body, html {
     transition: opacity 1s ease;
     z-index: 20;
 }
-
 .profile-pic {
     width: 120px;
     height: 120px;
@@ -74,14 +63,12 @@ body, html {
     object-fit: cover;
     box-shadow: 0 0 15px white;
 }
-
 .name-text {
     margin-top: 15px;
     font-size: 36px;
     color: white;
     text-shadow: 0 0 10px white, 0 0 20px white;
 }
-
 .roblox-logo {
     margin-top: 15px;
     width: 60px;
@@ -90,7 +77,6 @@ body, html {
     filter: drop-shadow(0 0 5px white);
     transition: transform 0.2s;
 }
-
 .roblox-logo:hover {
     transform: scale(1.1);
 }
