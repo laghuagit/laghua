@@ -24,3 +24,5 @@ html,body{width:100%;height:100%;overflow:hidden;background:black;font-family:'P
 #copied-text{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:13px;color:white;opacity:0;transition:opacity .3s;text-shadow:0 0 6px rgba(255,255,255,0.4)}
 #click-overlay.blur-away{animation:overlayBlur 1.5s ease forwards}
 @keyframes overlayBlur{0%{opacity:1;backdrop-filter:blur(0px)}50%{backdrop-filter:blur(10px)}100%{opacity:0;backdrop-filter:blur(15px)}}
+
+@media(max-width:480px){.profile-box,.small-box{width:90%;padding:15px 20px}.profile-pic{width:80px;height:80px}.small-pic{width:60px;height:60px}.name-text{font-size:22px}.description-text,.small-text{font-size:12px}.icon-row{gap:10px}.roblox-logo,.discord-logo{width:24px;height:24px}}
