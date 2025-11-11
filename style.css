@@ -1,57 +1,372 @@
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;overflow:hidden;background:black;font-family:'Poppins',sans-serif;letter-spacing:1px}
-#videoPlayer{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.1) brightness(1.1) saturate(1.2);opacity:0;transition:opacity 1s ease;z-index:1;pointer-events:none}
-#click-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;justify-content:center;align-items:center;cursor:pointer;z-index:10;backdrop-filter:blur(5px)}
-#click-overlay p{font-size:22px;color:#ffffffcc;text-transform:uppercase;letter-spacing:3px;transition:opacity .3s}
-#click-overlay:hover p{opacity:.7}
-.hidden{display:none}
-.content-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:50px;z-index:20}
-.profile-box{width:420px;padding:35px 70px;border-radius:22px;background:rgba(255,255,255,0.04);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.25);box-shadow:0 0 18px rgba(255,255,255,0.15),inset 0 0 35px rgba(255,255,255,0.06);display:flex;justify-content:center;align-items:center;flex-direction:column;opacity:0;transition:opacity 1.2s ease,transform .15s ease-out;animation:glowPulse 5s ease-in-out infinite alternate;transform-style:preserve-3d;perspective:800px;will-change:transform;backface-visibility:hidden;outline:1px solid transparent;-webkit-transform:translateZ(0);isolation:isolate}
-.profile-box.visible{opacity:1}
-@keyframes glowPulse{0%{box-shadow:0 0 18px rgba(255,255,255,0.08),inset 0 0 30px rgba(255,255,255,0.04)}100%{box-shadow:0 0 28px rgba(255,255,255,0.14),inset 0 0 40px rgba(255,255,255,0.06)}}
-.profile-container{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
-.profile-pic{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.4);box-shadow:0 0 25px rgba(255,255,255,0.15),0 0 50px rgba(100,180,255,0.2)}
-.name-text{font-size:30px;color:#fff;font-weight:700;letter-spacing:4px;text-shadow:0 0 8px rgba(255,255,255,0.4),0 0 15px rgba(100,180,255,0.3)}
-.description-text{font-size:16px;color:#e0e0e0;font-weight:500;letter-spacing:2px;text-shadow:0 0 6px rgba(255,255,255,0.25)}
-.small-box{width:420px;padding:25px 70px}
-.small-pic{width:90px;height:90px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);box-shadow:0 0 18px rgba(255,255,255,0.15)}
-.small-text{font-size:14px;letter-spacing:1px;color:#dcdcdc}
-.pink-box{background:rgba(255,105,180,0.1);border:1px solid rgba(255,105,180,0.4);box-shadow:0 0 18px rgba(255,105,180,0.2),inset 0 0 35px rgba(255,105,180,0.1);animation:pinkGlow 5s ease-in-out infinite alternate;transform-style:preserve-3d;perspective:800px;will-change:transform;backface-visibility:hidden;outline:1px solid transparent;-webkit-transform:translateZ(0);isolation:isolate}
-@keyframes pinkGlow{0%{box-shadow:0 0 18px rgba(255,105,180,0.12),inset 0 0 30px rgba(255,105,180,0.06)}100%{box-shadow:0 0 28px rgba(255,105,180,0.22),inset 0 0 40px rgba(255,105,180,0.12)}}
-.icon-row{margin-top:18px;display:flex;gap:16px;align-items:center;position:relative}
-.roblox-logo,.discord-logo{width:32px;height:32px;cursor:pointer;opacity:.9;transition:transform .25s,opacity .25s,filter .3s;filter:drop-shadow(0 0 6px rgba(255,255,255,0.4))}
-.roblox-logo:hover,.discord-logo:hover{transform:scale(1.1);opacity:1;filter:drop-shadow(0 0 12px rgba(255,255,255,0.7))}
-#copied-text{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:13px;color:white;opacity:0;transition:opacity .3s;text-shadow:0 0 6px rgba(255,255,255,0.4)}
-#click-overlay.blur-away{animation:overlayBlur 1.5s ease forwards}
-@keyframes overlayBlur{0%{opacity:1;backdrop-filter:blur(0px)}50%{backdrop-filter:blur(10px)}100%{opacity:0;backdrop-filter:blur(15px)}}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-@media(max-width:1024px){
-.content-center{gap:40px}
-.profile-box,.small-box{width:80%;padding:25px 40px}
-.profile-pic{width:100px;height:100px}
-.small-pic{width:75px;height:75px}
-.name-text{font-size:24px}
-.description-text,.small-text{font-size:14px}
-.icon-row{gap:12px}
-.roblox-logo,.discord-logo{width:28px;height:28px}
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
 }
-@media(max-width:768px){
-.content-center{gap:30px}
-.profile-box,.small-box{width:90%;padding:20px 25px}
-.profile-pic{width:90px;height:90px}
-.small-pic{width:65px;height:65px}
-.name-text{font-size:20px}
-.description-text,.small-text{font-size:12px}
-.icon-row{gap:10px}
-.roblox-logo,.discord-logo{width:24px;height:24px}
+
+#videoPlayer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.1) brightness(1.1) saturate(1.2);
+  opacity: 1;
+  transition: filter 1.5s ease, opacity 1.5s ease;
+  z-index: 1;
+  pointer-events: none;
 }
-@media(max-width:480px){
-.content-center{gap:20px;transform:translate(-50%,-50%) scale(0.9)}
-.profile-box,.small-box{width:90%;padding:15px 20px}
-.profile-pic{width:80px;height:80px}
-.small-pic{width:60px;height:60px}
-.name-text{font-size:18px}
-.description-text,.small-text{font-size:11px}
-.icon-row{gap:8px}
-.roblox-logo,.discord-logo{width:20px;height:20px}
+
+#click-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(18px);
+  transition: opacity 1.8s ease, backdrop-filter 1.8s ease;
+  flex-direction: column;
+  overflow: visible;
+  position: relative;
+}
+
+#big-hua {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 250px;
+  color: #660000; 
+  opacity: 0.15;
+  pointer-events: none; 
+  user-select: none;
+  letter-spacing: 12px;
+  white-space: nowrap;
+  z-index: 5;
+  filter: drop-shadow(0 0 10px #660000);
+  mix-blend-mode: screen;
+}
+
+#click-overlay p {
+  font-size: 24px;
+  color: rgba(255, 0, 0, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-family: 'Cinzel', serif;
+  text-shadow:
+    0 0 10px rgba(255, 0, 0, 0.6),
+    0 0 18px rgba(100, 0, 0, 0.4);
+  animation: textPulse 2.8s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 10;
+}
+
+#click-overlay.fade-away {
+  opacity: 0;
+  backdrop-filter: blur(0);
+  pointer-events: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.content-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  z-index: 20;
+}
+
+.profile-box {
+  width: 420px;
+  padding: 35px 70px;
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  box-shadow:
+    0 0 25px rgba(90, 0, 0, 0.4),
+    inset 0 0 35px rgba(255, 0, 0, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  animation: glowPulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow:
+      0 0 18px rgba(255, 0, 0, 0.08),
+      inset 0 0 30px rgba(255, 0, 0, 0.04);
+  }
+  100% {
+    box-shadow:
+      0 0 28px rgba(255, 0, 0, 0.14),
+      inset 0 0 40px rgba(255, 0, 0, 0.06);
+  }
+}
+
+.profile-box.visible {
+  opacity: 1;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 0, 0, 0.4);
+  box-shadow:
+    0 0 25px rgba(255, 0, 0, 0.15),
+    0 0 50px rgba(100, 0, 0, 0.2);
+}
+
+.name-text {
+  font-size: 30px;
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 8px rgba(255, 0, 0, 0.4),
+    0 0 15px rgba(150, 0, 0, 0.3);
+}
+
+.description-text {
+  font-size: 16px;
+  color: #c8c8c8;
+  font-family: 'Cinzel', serif;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.25);
+}
+
+.icon-row {
+  margin-top: 18px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  position: relative;
+}
+
+@keyframes emberGlow {
+  0%, 100% {
+    filter: brightness(0) saturate(100%)
+      invert(8%) sepia(80%) saturate(5500%)
+      hue-rotate(-5deg) brightness(55%)
+      contrast(120%) drop-shadow(0 0 6px rgba(100,0,0,0.5));
+  }
+  50% {
+    filter: brightness(0) saturate(100%)
+      invert(8%) sepia(80%) saturate(5500%)
+      hue-rotate(-5deg) brightness(85%)
+      contrast(130%) drop-shadow(0 0 14px rgba(150,0,0,0.8));
+  }
+}
+
+.roblox-logo, .discord-logo {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: transform 0.25s, opacity 0.25s, filter 0.3s;
+  animation: emberGlow 4s ease-in-out infinite;
+}
+
+.roblox-logo:hover, .discord-logo:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+#copied-text {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.4);
+}
+
+@media (max-width: 1024px) {
+  .content-center {
+    gap: 40px;
+  }
+  .profile-box {
+    width: 80%;
+    padding: 25px 40px;
+  }
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+  .name-text {
+    font-size: 24px;
+  }
+  .description-text {
+    font-size: 14px;
+  }
+  .icon-row {
+    gap: 12px;
+  }
+  .roblox-logo, .discord-logo {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-center {
+    gap: 30px;
+  }
+  .profile-box {
+    width: 90%;
+    padding: 20px 25px;
+  }
+  .profile-pic {
+    width: 90px;
+    height: 90px;
+  }
+  .name-text {
+    font-size: 20px;
+  }
+  .description-text {
+    font-size: 12px;
+  }
+  .icon-row {
+    gap: 10px;
+  }
+  .roblox-logo, .discord-logo {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-center {
+    gap: 20px;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  .profile-box {
+    width: 90%;
+    padding: 15px 20px;
+  }
+  .profile-pic {
+    width: 80px;
+    height: 80px;
+  }
+  .name-text {
+    font-size: 18px;
+  }
+  .description-text {
+    font-size: 11px;
+  }
+  .icon-row {
+    gap: 8px;
+  }
+  .roblox-logo, .discord-logo {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.audio-bar {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10, 0, 0, 0.65);
+  padding: 8px 14px;
+  border-radius: 30px;
+  box-shadow:
+    0 0 18px rgba(255, 0, 0, 0.25),
+    inset 0 0 8px rgba(255, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.audio-bar button {
+  background: none;
+  border: none;
+  color: rgba(255, 80, 80, 0.85);
+  font-size: 16px;
+  cursor: pointer;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.audio-bar button:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8));
+}
+
+.audio-bar input[type=range] {
+  -webkit-appearance: none;
+  width: 90px;
+  height: 5px;
+  background: rgba(60, 0, 0, 0.6);
+  border-radius: 4px;
+  outline: none;
+}
+
+.audio-bar input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff3333;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.audio-bar input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+@keyframes textPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
